@@ -1,5 +1,7 @@
+import {useState} from 'react';
 import Search from './search';
 import './App.css';
+
 
 const posts =  [
   {id: '1', name: "Clean code"},
@@ -22,11 +24,15 @@ const App = () => {
 
   const {search} = window.location;
   const query = new URLSearchParams(search).get('s');
-  const filteredPosts = filterPosts(posts, query);
+  const [searchQuery, setSearchQuery] = useState(query || '');
+  const filteredPosts = filterPosts(posts, searchQuery);
 
   return(
     <div>
-      <Search />
+      <Search 
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <ul>
         {filteredPosts.map((post) => (
           <li key={post.id}>{post.name}</li>
