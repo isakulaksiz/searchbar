@@ -8,12 +8,27 @@ const posts =  [
   {id: '4', name: 'Artificial intelligence'}
 ];
 
+const filterPosts = (posts, query) => {
+  if(!query){
+    return posts;
+  }
+  return posts.filter((post) => {
+    const postName = post.name.toLowerCase();
+    return postName.includes(query);
+  });
+}
+
 const App = () => {
+
+  const {search} = window.location;
+  const query = new URLSearchParams(search).get('s');
+  const filteredPosts = filterPosts(posts, query);
+
   return(
     <div>
       <Search />
       <ul>
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <li key={post.id}>{post.name}</li>
         ))}
       </ul>
