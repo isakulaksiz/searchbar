@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Search from './search';
 import './App.css';
-
+import {BrowserRouter as Router} from 'react-router-dom';
 
 const posts =  [
   {id: '1', name: "Clean code"},
@@ -26,9 +26,10 @@ const App = () => {
   const query = new URLSearchParams(search).get('s');
   const [searchQuery, setSearchQuery] = useState(query || '');
   const filteredPosts = filterPosts(posts, searchQuery);
-
+  
   return(
-    <div>
+  <Router>
+    <div className="App">
       <Search 
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -39,7 +40,8 @@ const App = () => {
         ))}
       </ul>
     </div>
+  </Router>
   );
-}
+};
 
 export default App;

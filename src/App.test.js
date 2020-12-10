@@ -1,8 +1,16 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
-test('renders learn react link', () => {
+test('should render one post when user search for preact', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  let posts = screen.getAllByRole('listitem');
+  expect(posts.length).toEqual(4);
+
+  const searchBar = screen.getByRole('textbox');
+  userEvent.type(searchBar, 'preact');
+
+  posts = screen.getAllByRole('listitem');
+  expect(posts.length).toEqual(1);
 });
